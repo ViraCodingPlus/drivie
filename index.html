@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drivie - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366F1',
+                        secondary: '#8B5CF6',
+                        accent: '#F59E0B',
+                        emergency: '#EF4444',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Light Color Palettes */
+        .palette-ocean {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        .palette-sunset {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #ff9ff3 100%);
+        }
+        
+        .palette-forest {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 50%, #74b9ff 100%);
+        }
+        
+        .palette-aurora {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 50%, #fd79a8 100%);
+        }
+        
+        .palette-fire {
+            background: linear-gradient(135deg, #e17055 0%, #fdcb6e 50%, #e84393 100%);
+        }
+        
+        .palette-sky {
+            background: linear-gradient(135deg, #0984e3 0%, #00cec9 50%, #6c5ce7 100%);
+        }
+        
+        /* Dark Color Palettes */
+        .palette-midnight {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #8e44ad 100%);
+        }
+        
+        .palette-neon {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .palette-cosmos {
+            background: linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .palette-cyber {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #4a4a4a 100%);
+        }
+        
+        .palette-vampire {
+            background: linear-gradient(135deg, #2c1810 0%, #4a1c1c 50%, #8b0000 100%);
+        }
+        
+        .palette-storm {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3730a3 100%);
+        }
+        
+        .gradient-bg {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+        }
+        
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+            background: linear-gradient(45deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+        }
+        
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        .phone-input {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .phone-input:focus {
+            border-color: rgba(255,255,255,0.8);
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            color: #6366F1;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.4);
+        }
+        
+        .otp-input {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .otp-input:focus {
+            border-color: white;
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        
+        .step {
+            display: none;
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .progress-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .progress-dot.active::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        .role-card {
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .role-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .role-card.selected {
+            border-color: white;
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255,255,255,0.4);
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .upload-area:hover {
+            border-color: white;
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.02);
+        }
+        
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-container:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-check {
+            animation: checkmark 0.6s ease-in-out;
+        }
+        
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        /* Color Palette Selector */
+        .palette-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 10px;
+            border: 2px solid rgba(255,255,255,0.2);
+            max-height: 80vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            cursor: move;
+        }
+        
+        .palette-selector.compact {
+            padding: 8px;
+            max-height: none;
+            overflow: hidden;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .palette-selector.compact .palette-section:not(.selected-section) {
+            display: none;
+        }
+        
+        .palette-selector.compact .palette-section-title {
+            display: none;
+        }
+        
+        .palette-selector.compact .palette-options {
+            justify-content: center;
+        }
+        
+        .palette-selector.compact .palette-option {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .palette-selector.compact .text-center {
+            display: none;
+        }
+        
+        .theme-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .palette-selector.compact .theme-icon {
+            display: flex;
+        }
+        
+        .theme-icon:hover {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .expand-button {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 10px;
+            color: white;
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .palette-selector.compact .expand-button {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .expand-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .palette-section {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .palette-section-title {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .palette-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+        }
+        
+        .palette-option {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .palette-option:hover {
+            transform: scale(1.3);
+            border-color: white;
+        }
+        
+        .palette-option.active {
+            border-color: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        .palette-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        
+        /* Dragging styles */
+        .palette-selector.dragging {
+            opacity: 0.8;
+            transform: scale(1.05);
+            z-index: 1001;
+        }
+        
+        .palette-selector.compact.dragging {
+            transform: scale(1.1);
+        }
+        
+        /* Custom gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="gradient-bg palette-ocean min-h-screen text-white relative">
+    <!-- Color Palette Selector -->
+    <div class="palette-selector" id="paletteSelector" onmousedown="startDragging(event)">
+        <div class="expand-button" onclick="togglePaletteSelector()">⚙️</div>
+        <div class="theme-icon" onclick="expandPaletteSelector()">🎨</div>
+        <div class="text-center text-xs font-medium mb-3 text-white/80">🎨 Themes</div>
+        
+        <!-- Light Themes -->
+        <div class="palette-section light-section">
+            <div class="palette-section-title">☀️ Light</div>
+            <div class="palette-options">
+                <div class="palette-option active" style="background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);" onclick="changePalette('ocean')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #ff6b6b, #feca57, #ff9ff3);" onclick="changePalette('sunset')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #00b894, #00cec9, #74b9ff);" onclick="changePalette('forest')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7, #fd79a8);" onclick="changePalette('aurora')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #e17055, #fdcb6e, #e84393);" onclick="changePalette('fire')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #0984e3, #00cec9, #6c5ce7);" onclick="changePalette('sky')"></div>
+            </div>
+        </div>
+        
+        <!-- Dark Themes -->
+        <div class="palette-section dark-section">
+            <div class="palette-section-title">🌙 Dark</div>
+            <div class="palette-options">
+                <div class="palette-option" style="background: linear-gradient(135deg, #2c3e50, #34495e, #8e44ad);" onclick="changePalette('midnight')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);" onclick="changePalette('neon')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #0b0b0b, #1a1a2e, #16213e);" onclick="changePalette('cosmos')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #4a4a4a);" onclick="changePalette('cyber')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #2c1810, #4a1c1c, #8b0000);" onclick="changePalette('vampire')"></div>
+                <div class="palette-option" style="background: linear-gradient(135deg, #1e3a8a, #1e40af, #3730a3);" onclick="changePalette('storm')"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="flex justify-between items-center px-4 py-2 text-sm font-medium relative z-10">
+        <span><i class="fas fa-clock mr-1"></i>9:41</span>
+        <span class="font-bold"><i class="fas fa-car mr-1"></i>Drivie</span>
+        <span><i class="fas fa-battery-three-quarters mr-1"></i>100%</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col items-center justify-center min-h-screen px-6 py-8 relative z-10">
+        
+        <!-- Step 1: Welcome -->
+        <div id="step1" class="step active fade-in-up w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="icon-container bounce-in">
+                    <i class="fas fa-car text-4xl text-white"></i>
+                </div>
+                <h1 class="text-4xl font-bold mb-4 text-glow">Welcome to Drivie</h1>
+                <p class="text-xl opacity-90">Safe driving connections</p>
+                <div class="mt-4 flex justify-center space-x-2">
+                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    <div class="w-2 h-2 bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                    <div class="w-2 h-2 bg-white/40 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="phone-input rounded-xl p-6">
+                    <label class="block text-sm font-medium mb-3 flex items-center">
+                        <i class="fas fa-phone mr-2"></i>Phone Number
+                    </label>
+                    <input type="tel" id="phone" placeholder="+90 555 123 4567" 
+                           class="w-full bg-transparent text-white placeholder-white/70 outline-none text-lg">
+                </div>
+                
+                <button onclick="nextStep()" class="btn-primary w-full py-5 rounded-xl font-semibold text-lg flex items-center justify-center">
+                    <i class="fas fa-arrow-right mr-2"></i>Continue
+                </button>
+            </div>
+            
+            <div class="flex justify-center mt-8 space-x-3">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- Step 2: OTP Verification -->
+        <div id="step2" class="step w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="icon-container bounce-in">
+                    <i class="fas fa-mobile-alt text-4xl text-white"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-3 text-glow">Verify Your Phone</h2>
+                <p class="opacity-90 text-lg">Enter the 4-digit code sent to your phone</p>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="flex justify-center space-x-4">
+                    <input type="text" class="otp-input" maxlength="1" data-index="0">
+                    <input type="text" class="otp-input" maxlength="1" data-index="1">
+                    <input type="text" class="otp-input" maxlength="1" data-index="2">
+                    <input type="text" class="otp-input" maxlength="1" data-index="3">
+                </div>
+                
+                <div class="text-center space-y-4">
+                    <button onclick="verifyOTP()" class="btn-primary w-full py-5 rounded-xl font-semibold text-lg flex items-center justify-center">
+                        <i class="fas fa-check mr-2"></i>Verify & Continue
+                    </button>
+                    <button onclick="resendOTP()" class="text-white/80 underline flex items-center justify-center mx-auto">
+                        <i class="fas fa-redo mr-2"></i>Resend Code
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-8 space-x-3">
+                <div class="progress-dot"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- Step 3: Role Selection -->
+        <div id="step3" class="step w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="icon-container bounce-in">
+                    <i class="fas fa-user-circle text-4xl text-white"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-3 text-glow">Choose Your Role</h2>
+                <p class="opacity-90 text-lg">What would you like to do with Drivie?</p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="role-card rounded-xl p-8 text-center" onclick="selectRole('driver')">
+                    <div class="icon-container mb-4">
+                        <i class="fas fa-steering-wheel text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">I'm a Driver</h3>
+                    <p class="text-sm opacity-80">I want to drive other people's cars safely</p>
+                    <div class="mt-4 flex justify-center space-x-2">
+                        <div class="w-2 h-2 bg-white/60 rounded-full"></div>
+                        <div class="w-2 h-2 bg-white/40 rounded-full"></div>
+                        <div class="w-2 h-2 bg-white/20 rounded-full"></div>
+                    </div>
+                </div>
+                
+                <div class="role-card rounded-xl p-8 text-center" onclick="selectRole('owner')">
+                    <div class="icon-container mb-4">
+                        <i class="fas fa-car text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">I'm a Car Owner</h3>
+                    <p class="text-sm opacity-80">I need a sober driver for my car</p>
+                    <div class="mt-4 flex justify-center space-x-2">
+                        <div class="w-2 h-2 bg-white/60 rounded-full"></div>
+                        <div class="w-2 h-2 bg-white/40 rounded-full"></div>
+                        <div class="w-2 h-2 bg-white/20 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-8 space-x-3">
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- Step 4: Identity Verification -->
+        <div id="step4" class="step w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="icon-container bounce-in">
+                    <i class="fas fa-id-card text-4xl text-white"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-3 text-glow">Identity Verification</h2>
+                <p class="opacity-90 text-lg">Please upload your documents for verification</p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="upload-area rounded-xl p-6 text-center">
+                    <div class="icon-container mb-4">
+                        <i class="fas fa-id-badge text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2 text-lg">National ID Card</h3>
+                    <p class="text-sm opacity-80 mb-4">Upload front and back of your ID</p>
+                    <button onclick="uploadDocument('id')" class="btn-primary px-8 py-3 rounded-lg text-sm flex items-center mx-auto">
+                        <i class="fas fa-upload mr-2"></i>Upload ID
+                    </button>
+                </div>
+                
+                <div class="upload-area rounded-xl p-6 text-center">
+                    <div class="icon-container mb-4">
+                        <i class="fas fa-camera text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2 text-lg">Selfie Verification</h3>
+                    <p class="text-sm opacity-80 mb-4">Take a photo to verify your identity</p>
+                    <button onclick="takeSelfie()" class="btn-primary px-8 py-3 rounded-lg text-sm flex items-center mx-auto">
+                        <i class="fas fa-camera mr-2"></i>Take Selfie
+                    </button>
+                </div>
+                
+                <div id="driverLicense" class="upload-area rounded-xl p-6 text-center" style="display: none;">
+                    <div class="icon-container mb-4">
+                        <i class="fas fa-license text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2 text-lg">Driver's License</h3>
+                    <p class="text-sm opacity-80 mb-4">Upload your driver's license</p>
+                    <button onclick="uploadDocument('license')" class="btn-primary px-8 py-3 rounded-lg text-sm flex items-center mx-auto">
+                        <i class="fas fa-upload mr-2"></i>Upload License
+                    </button>
+                </div>
+                
+                <div id="carInfo" class="upload-area rounded-xl p-6 text-center" style="display: none;">
+                    <div class="icon-container mb-4">
+                        <i class="fas fa-car-side text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2 text-lg">Car Information</h3>
+                    <p class="text-sm opacity-80 mb-4">Add details about your car</p>
+                    <button onclick="addCarInfo()" class="btn-primary px-8 py-3 rounded-lg text-sm flex items-center mx-auto">
+                        <i class="fas fa-plus mr-2"></i>Add Car Info
+                    </button>
+                </div>
+            </div>
+            
+            <button onclick="completeVerification()" class="btn-primary w-full py-5 rounded-xl font-semibold text-lg mt-8 flex items-center justify-center">
+                <i class="fas fa-shield-check mr-2"></i>Complete Verification
+            </button>
+            
+            <div class="flex justify-center mt-8 space-x-3">
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot active"></div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="step w-full max-w-md text-center">
+            <div class="loading-spinner mx-auto mb-6"></div>
+            <h3 class="text-2xl font-semibold mb-3 text-glow">Verifying...</h3>
+            <p class="opacity-80 text-lg">Please wait while we verify your information</p>
+            <div class="mt-6 flex justify-center space-x-2">
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+            </div>
+        </div>
+
+        <!-- Success State -->
+        <div id="success" class="step w-full max-w-md text-center">
+            <div class="icon-container success-check">
+                <i class="fas fa-check-circle text-5xl text-white"></i>
+            </div>
+            <h3 class="text-3xl font-bold mb-4 text-glow">Welcome to Drivie!</h3>
+            <p class="opacity-80 text-lg mb-8">Your account has been successfully created</p>
+            <button onclick="goToHome()" class="btn-primary w-full py-5 rounded-xl font-semibold text-lg flex items-center justify-center">
+                <i class="fas fa-rocket mr-2"></i>Get Started
+            </button>
+            <div class="mt-6 flex justify-center space-x-2">
+                <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <div class="w-2 h-2 bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                <div class="w-2 h-2 bg-white/40 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedRole = '';
+        let documentsUploaded = {
+            id: false,
+            selfie: false,
+            license: false,
+            carInfo: false
+        };
+
+        // Color Palette Functions
+        let currentPalette = 'ocean';
+        let isCompact = false;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        
+        function changePalette(palette) {
+            const body = document.body;
+            const options = document.querySelectorAll('.palette-option');
+            const selector = document.getElementById('paletteSelector');
+            
+            // Remove all palette classes
+            body.classList.remove('palette-ocean', 'palette-sunset', 'palette-forest', 'palette-aurora', 'palette-fire', 'palette-sky', 'palette-midnight', 'palette-neon', 'palette-cosmos', 'palette-cyber', 'palette-vampire', 'palette-storm');
+            
+            // Add new palette class
+            body.classList.add(`palette-${palette}`);
+            
+            // Update active state
+            options.forEach(option => option.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update current palette
+            currentPalette = palette;
+            
+            // Show notification
+            const paletteNames = {
+                'ocean': 'Ocean Blue',
+                'sunset': 'Sunset Orange',
+                'forest': 'Forest Green',
+                'aurora': 'Aurora Purple',
+                'fire': 'Fire Red',
+                'sky': 'Sky Blue',
+                'midnight': 'Midnight Dark',
+                'neon': 'Neon Cyber',
+                'cosmos': 'Cosmos Space',
+                'cyber': 'Cyber Gray',
+                'vampire': 'Vampire Red',
+                'storm': 'Storm Blue'
+            };
+            
+            showNotification(`Theme changed to ${paletteNames[palette]}`, 'success');
+            
+            // Auto-compact after selection
+            setTimeout(() => {
+                makeCompact();
+            }, 1000);
+        }
+        
+        function makeCompact() {
+            const selector = document.getElementById('paletteSelector');
+            const sections = document.querySelectorAll('.palette-section');
+            const activeOption = document.querySelector('.palette-option.active');
+            
+            // Find which section contains the active option
+            let activeSection = null;
+            sections.forEach(section => {
+                if (section.contains(activeOption)) {
+                    activeSection = section;
+                }
+            });
+            
+            // Remove selected-section class from all sections
+            sections.forEach(section => section.classList.remove('selected-section'));
+            
+            // Add selected-section class to active section
+            if (activeSection) {
+                activeSection.classList.add('selected-section');
+            }
+            
+            // Add compact class
+            selector.classList.add('compact');
+            isCompact = true;
+        }
+        
+        function expandPaletteSelector() {
+            const selector = document.getElementById('paletteSelector');
+            const sections = document.querySelectorAll('.palette-section');
+            
+            selector.classList.remove('compact');
+            sections.forEach(section => section.classList.remove('selected-section'));
+            isCompact = false;
+        }
+        
+        function togglePaletteSelector() {
+            const selector = document.getElementById('paletteSelector');
+            
+            if (isCompact) {
+                // Expand
+                expandPaletteSelector();
+            } else {
+                // Compact
+                makeCompact();
+            }
+        }
+        
+        // Dragging functionality
+        function startDragging(e) {
+            if (isCompact) return; // Only allow dragging when expanded
+            
+            isDragging = true;
+            const selector = document.getElementById('paletteSelector');
+            const rect = selector.getBoundingClientRect();
+            
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+            
+            selector.classList.add('dragging');
+            
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', stopDragging);
+            
+            e.preventDefault();
+        }
+        
+        function onDrag(e) {
+            if (!isDragging) return;
+            
+            const selector = document.getElementById('paletteSelector');
+            const x = e.clientX - dragOffset.x;
+            const y = e.clientY - dragOffset.y;
+            
+            // Keep within viewport bounds
+            const maxX = window.innerWidth - selector.offsetWidth;
+            const maxY = window.innerHeight - selector.offsetHeight;
+            
+            selector.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+            selector.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+            selector.style.right = 'auto';
+        }
+        
+        function stopDragging() {
+            isDragging = false;
+            const selector = document.getElementById('paletteSelector');
+            selector.classList.remove('dragging');
+            
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('mouseup', stopDragging);
+        }
+        
+        // Auto-compact after 3 seconds of inactivity
+        let compactTimeout;
+        function resetCompactTimeout() {
+            clearTimeout(compactTimeout);
+            compactTimeout = setTimeout(() => {
+                if (!isCompact) {
+                    makeCompact();
+                }
+            }, 3000);
+        }
+
+        // OTP Input Handling
+        document.querySelectorAll('.otp-input').forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                if (e.target.value.length === 1 && index < 3) {
+                    document.querySelector(`[data-index="${index + 1}"]`).focus();
+                }
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                    document.querySelector(`[data-index="${index - 1}"]`).focus();
+                }
+            });
+        });
+
+        function nextStep() {
+            if (currentStep === 1) {
+                const phone = document.getElementById('phone').value;
+                if (!phone) {
+                    showNotification('Please enter your phone number', 'error');
+                    return;
+                }
+            }
+            
+            showStep(currentStep + 1);
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            
+            // Show current step
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Update progress dots
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === step - 1);
+            });
+            
+            currentStep = step;
+        }
+
+        function verifyOTP() {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otp = Array.from(otpInputs).map(input => input.value).join('');
+            
+            if (otp.length !== 4) {
+                showNotification('Please enter the complete 4-digit code', 'error');
+                return;
+            }
+            
+            // Simulate OTP verification
+            showLoading();
+            setTimeout(() => {
+                showStep(3);
+            }, 2000);
+        }
+
+        function resendOTP() {
+            showNotification('New code sent to your phone', 'success');
+        }
+
+        function selectRole(role) {
+            selectedRole = role;
+            
+            // Update UI
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Show/hide relevant sections in next step
+            if (role === 'driver') {
+                document.getElementById('driverLicense').style.display = 'block';
+                document.getElementById('carInfo').style.display = 'none';
+            } else {
+                document.getElementById('driverLicense').style.display = 'none';
+                document.getElementById('carInfo').style.display = 'block';
+            }
+            
+            setTimeout(() => {
+                showStep(4);
+            }, 500);
+        }
+
+        function uploadDocument(type) {
+            // Simulate file upload
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                if (e.target.files.length > 0) {
+                    documentsUploaded[type] = true;
+                    showNotification(`${type.toUpperCase()} uploaded successfully!`, 'success');
+                }
+            };
+            input.click();
+        }
+
+        function takeSelfie() {
+            // Simulate camera access
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        showNotification('Camera access granted! Selfie captured.', 'success');
+                        documentsUploaded.selfie = true;
+                    })
+                    .catch(function(err) {
+                        showNotification('Camera access denied. Please try again.', 'error');
+                    });
+            } else {
+                showNotification('Camera not available on this device.', 'error');
+            }
+        }
+
+        function addCarInfo() {
+            const carInfo = prompt('Enter your car details (Model, Year, Color):');
+            if (carInfo) {
+                documentsUploaded.carInfo = true;
+                showNotification('Car information added successfully!', 'success');
+            }
+        }
+
+        function completeVerification() {
+            const requiredDocs = selectedRole === 'driver' 
+                ? ['id', 'selfie', 'license']
+                : ['id', 'selfie', 'carInfo'];
+            
+            const allUploaded = requiredDocs.every(doc => documentsUploaded[doc]);
+            
+            if (!allUploaded) {
+                showNotification('Please complete all required document uploads', 'error');
+                return;
+            }
+            
+            showLoading();
+            setTimeout(() => {
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('success').classList.add('active');
+            }, 3000);
+        }
+
+        function showLoading() {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('loading').classList.add('active');
+        }
+
+        function goToHome() {
+            showNotification('Redirecting to Drivie home screen...', 'success');
+            // window.location.href = 'home.html';
+        }
+
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg text-white font-medium ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} mr-2"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus phone input
+            document.getElementById('phone').focus();
+            
+            // Add event listeners for palette selector
+            const selector = document.getElementById('paletteSelector');
+            const sections = document.querySelectorAll('.palette-section');
+            
+            // Mouse enter to expand (only when compact)
+            selector.addEventListener('mouseenter', function() {
+                if (isCompact) {
+                    // Don't auto-expand on hover for compact mode
+                    // User must click the icon to expand
+                } else {
+                    resetCompactTimeout();
+                }
+            });
+            
+            // Mouse leave to compact (only when expanded)
+            selector.addEventListener('mouseleave', function() {
+                if (!isCompact) {
+                    resetCompactTimeout();
+                }
+            });
+            
+            // Auto-compact after 3 seconds
+            resetCompactTimeout();
+            
+            // Prevent dragging when clicking on buttons
+            const buttons = selector.querySelectorAll('button, .palette-option, .expand-button, .theme-icon');
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
