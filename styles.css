@@ -43,6 +43,11 @@
 .screen:nth-child(7) { animation-delay: 0.6s; }
 .screen:nth-child(8) { animation-delay: 0.7s; }
 
+
+
+body{
+    overflow-y: scroll;
+}
 /* Enhanced Button Styles */
 .btn {
     transition: all 0.3s ease;
