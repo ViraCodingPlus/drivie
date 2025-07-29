@@ -1,0 +1,341 @@
+/* Additional Styles for Drivie App UI/UX */
+
+/* Enhanced Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Enhanced Screen Animations */
+.screen {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.screen:nth-child(2) { animation-delay: 0.1s; }
+.screen:nth-child(3) { animation-delay: 0.2s; }
+.screen:nth-child(4) { animation-delay: 0.3s; }
+.screen:nth-child(5) { animation-delay: 0.4s; }
+.screen:nth-child(6) { animation-delay: 0.5s; }
+.screen:nth-child(7) { animation-delay: 0.6s; }
+.screen:nth-child(8) { animation-delay: 0.7s; }
+
+/* Enhanced Button Styles */
+.btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(11, 163, 108, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* SOS Button Animation */
+.sos-btn {
+    animation: pulse 2s infinite;
+    background: linear-gradient(45deg, #ff4444, #ff6666);
+}
+
+.sos-btn:hover {
+    animation: none;
+    transform: scale(1.05);
+}
+
+/* Enhanced Input Styles */
+.input {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.input:focus {
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+}
+
+/* Code Input Enhancement */
+.code-digit {
+    transition: all 0.3s ease;
+}
+
+.code-digit:focus {
+    border-color: white;
+    background: rgba(255,255,255,0.1);
+    transform: scale(1.1);
+}
+
+/* Map Container Enhancement */
+.map-container {
+    background: linear-gradient(45deg, #0BA36C, #0A8A5A, #0BA36C);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Profile Avatar Enhancement */
+.profile-avatar {
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(11, 163, 108, 0.3);
+}
+
+.profile-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(11, 163, 108, 0.4);
+}
+
+/* Test Target Enhancement */
+.test-target {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Payment Method Enhancement */
+.payment-method {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.payment-method:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Filter Item Enhancement */
+.filter-item {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-item:hover {
+    background: rgba(11, 163, 108, 0.1);
+    padding-left: 15px;
+}
+
+/* Action Button Enhancement */
+.action-btn {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Status Bar Enhancement */
+.status-bar {
+    background: linear-gradient(90deg, #0BA36C, #0A8A5A);
+    position: relative;
+}
+
+.status-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+}
+
+/* Enhanced Phone Frame */
+.phone-frame {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.phone-frame:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Loading Animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0BA36C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Success Animation */
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-check {
+    animation: checkmark 0.5s ease-in-out;
+}
+
+/* Enhanced Typography */
+.screen-title {
+    position: relative;
+}
+
+.screen-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: #0BA36C;
+    border-radius: 1px;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .screens-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .phone-frame {
+        width: 250px;
+        height: 450px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a1a1a;
+        color: #fff;
+    }
+    
+    .screen {
+        background: #2a2a2a;
+        color: #fff;
+    }
+    
+    .phone-screen {
+        background: #2a2a2a;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .header {
+        background: #0BA36C !important;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .screen {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+/* Accessibility Enhancements */
+.btn:focus,
+.input:focus,
+.code-digit:focus {
+    outline: 2px solid #0BA36C;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .btn {
+        border: 2px solid #0BA36C;
+    }
+    
+    .input {
+        border: 2px solid #333;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

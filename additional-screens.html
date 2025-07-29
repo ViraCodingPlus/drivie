@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drivie App - Additional Screens</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #0BA36C, #0A8A5A);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .screen {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .screen:hover {
+            transform: translateY(-5px);
+        }
+
+        .screen-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0BA36C;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .phone-frame {
+            width: 280px;
+            height: 500px;
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 8px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 17px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            height: 30px;
+            background: #0BA36C;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+        }
+
+        .btn {
+            background: #0BA36C;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(11, 163, 108, 0.3);
+        }
+
+        /* Onboarding Screens */
+        .onboarding {
+            background: linear-gradient(135deg, #0BA36C, #0A8A5A);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            height: 100%;
+        }
+
+        .onboarding-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .onboarding-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .onboarding-desc {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        /* Settings Screen */
+        .settings-screen {
+            padding: 20px;
+        }
+
+        .settings-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 25px;
+            background: #ccc;
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle-switch.active {
+            background: #0BA36C;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2.5px;
+            left: 2.5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            left: 27.5px;
+        }
+
+        /* Notifications Screen */
+        .notifications-screen {
+            padding: 20px;
+        }
+
+        .notification-item {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .notification-time {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .notification-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Wallet Screen */
+        .wallet-screen {
+            padding: 20px;
+        }
+
+        .wallet-balance {
+            background: linear-gradient(135deg, #0BA36C, #0A8A5A);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            background: #0BA36C;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+        }
+
+        /* Language Selection */
+        .language-screen {
+            padding: 20px;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-option:hover {
+            background: #e8e8e8;
+        }
+
+        .language-option.selected {
+            background: #0BA36C;
+            color: white;
+        }
+
+        .language-flag {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        /* Emergency Contacts */
+        .emergency-screen {
+            padding: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            background: #0BA36C;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+        }
+
+        /* Trip History */
+        .history-screen {
+            padding: 20px;
+        }
+
+        .trip-item {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .trip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .trip-date {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .trip-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .trip-status.completed {
+            background: #0BA36C;
+            color: white;
+        }
+
+        .trip-status.cancelled {
+            background: #ff4444;
+            color: white;
+        }
+
+        .trip-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .screen-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Drivie App - Additional Screens</h1>
+            <p>Onboarding, Settings, Notifications & More</p>
+        </div>
+
+        <div class="screens-grid">
+            <!-- Onboarding Screen 1 -->
+            <div class="screen">
+                <div class="screen-title">🎯 Onboarding 1</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="onboarding">
+                                <div class="onboarding-icon">🚗</div>
+                                <div class="onboarding-title">Welcome to Drivie</div>
+                                <div class="onboarding-desc">
+                                    Connect with safe drivers when you need them most
+                                </div>
+                                <div class="progress-dots">
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                                <button class="btn">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Welcome screen with app introduction</div>
+            </div>
+
+            <!-- Onboarding Screen 2 -->
+            <div class="screen">
+                <div class="screen-title">🔒 Onboarding 2</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="onboarding">
+                                <div class="onboarding-icon">🛡️</div>
+                                <div class="onboarding-title">Safety First</div>
+                                <div class="onboarding-desc">
+                                    Verified drivers with safety tests and emergency features
+                                </div>
+                                <div class="progress-dots">
+                                    <div class="dot"></div>
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                </div>
+                                <button class="btn">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Safety features introduction</div>
+            </div>
+
+            <!-- Settings Screen -->
+            <div class="screen">
+                <div class="screen-title">⚙️ Settings</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="settings-screen">
+                                <div class="settings-header">
+                                    <button class="back-btn">←</button>
+                                    <h3>Settings</h3>
+                                </div>
+                                
+                                <div class="settings-item">
+                                    <span>Notifications</span>
+                                    <div class="toggle-switch active"></div>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Location Services</span>
+                                    <div class="toggle-switch active"></div>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Dark Mode</span>
+                                    <div class="toggle-switch"></div>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Language</span>
+                                    <span>English →</span>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Emergency Contacts</span>
+                                    <span>→</span>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Privacy Policy</span>
+                                    <span>→</span>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Terms of Service</span>
+                                    <span>→</span>
+                                </div>
+                                <div class="settings-item">
+                                    <span>Log Out</span>
+                                    <span style="color: #ff4444;">→</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">App settings and preferences</div>
+            </div>
+
+            <!-- Notifications Screen -->
+            <div class="screen">
+                <div class="screen-title">🔔 Notifications</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="notifications-screen">
+                                <div class="settings-header">
+                                    <button class="back-btn">←</button>
+                                    <h3>Notifications</h3>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-header">
+                                        <span class="notification-title">Trip Completed</span>
+                                        <span class="notification-time">2 min ago</span>
+                                    </div>
+                                    <div class="notification-desc">
+                                        Your trip with Sarah has been completed. Rate your experience.
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-header">
+                                        <span class="notification-title">Payment Received</span>
+                                        <span class="notification-time">1 hour ago</span>
+                                    </div>
+                                    <div class="notification-desc">
+                                        ₺45.00 has been added to your wallet.
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-item">
+                                    <div class="notification-header">
+                                        <span class="notification-title">Driver Found</span>
+                                        <span class="notification-time">3 hours ago</span>
+                                    </div>
+                                    <div class="notification-desc">
+                                        John is available to drive your car. Accept now?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Notification center with trip updates</div>
+            </div>
+
+            <!-- Wallet Screen -->
+            <div class="screen">
+                <div class="screen-title">💰 Wallet</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="wallet-screen">
+                                <div class="wallet-balance">
+                                    <div class="balance-amount">₺150.00</div>
+                                    <div>Available Balance</div>
+                                </div>
+                                
+                                <button class="btn">Add Money</button>
+                                <button class="btn">Withdraw</button>
+                                
+                                <h4 style="margin: 20px 0 10px 0;">Recent Transactions</h4>
+                                
+                                <div class="transaction-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="transaction-icon">-</div>
+                                        <div>
+                                            <div style="font-weight: 600;">Trip Payment</div>
+                                            <div style="font-size: 0.8rem; color: #666;">Today, 2:30 PM</div>
+                                        </div>
+                                    </div>
+                                    <span style="color: #ff4444; font-weight: 600;">-₺45.00</span>
+                                </div>
+                                
+                                <div class="transaction-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="transaction-icon">+</div>
+                                        <div>
+                                            <div style="font-weight: 600;">Wallet Top-up</div>
+                                            <div style="font-size: 0.8rem; color: #666;">Yesterday, 10:15 AM</div>
+                                        </div>
+                                    </div>
+                                    <span style="color: #0BA36C; font-weight: 600;">+₺100.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Wallet management and transaction history</div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="screen">
+                <div class="screen-title">🌍 Language</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="language-screen">
+                                <div class="settings-header">
+                                    <button class="back-btn">←</button>
+                                    <h3>Select Language</h3>
+                                </div>
+                                
+                                <div class="language-option selected">
+                                    <div class="language-flag">🇺🇸</div>
+                                    <div>
+                                        <div style="font-weight: 600;">English</div>
+                                        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">English</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="language-option">
+                                    <div class="language-flag">🇹🇷</div>
+                                    <div>
+                                        <div style="font-weight: 600;">Türkçe</div>
+                                        <div style="font-size: 0.8rem; color: #666;">Turkish</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="language-option">
+                                    <div class="language-flag">🇮🇷</div>
+                                    <div>
+                                        <div style="font-weight: 600;">فارسی</div>
+                                        <div style="font-size: 0.8rem; color: #666;">Persian</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Multilingual support selection</div>
+            </div>
+
+            <!-- Emergency Contacts -->
+            <div class="screen">
+                <div class="screen-title">🚨 Emergency Contacts</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="emergency-screen">
+                                <div class="settings-header">
+                                    <button class="back-btn">←</button>
+                                    <h3>Emergency Contacts</h3>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600;">Mom</div>
+                                        <div style="font-size: 0.8rem; color: #666;">+90 555 123 4567</div>
+                                    </div>
+                                    <span style="color: #ff4444;">→</span>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600;">Dad</div>
+                                        <div style="font-size: 0.8rem; color: #666;">+90 555 987 6543</div>
+                                    </div>
+                                    <span style="color: #ff4444;">→</span>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600;">Police</div>
+                                        <div style="font-size: 0.8rem; color: #666;">155</div>
+                                    </div>
+                                    <span style="color: #ff4444;">→</span>
+                                </div>
+                                
+                                <button class="btn" style="width: 100%; margin-top: 20px;">Add New Contact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Emergency contact management</div>
+            </div>
+
+            <!-- Trip History -->
+            <div class="screen">
+                <div class="screen-title">📋 Trip History</div>
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>Drivie</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="content">
+                            <div class="history-screen">
+                                <div class="settings-header">
+                                    <button class="back-btn">←</button>
+                                    <h3>Trip History</h3>
+                                </div>
+                                
+                                <div class="trip-item">
+                                    <div class="trip-header">
+                                        <span class="trip-date">Today, 2:30 PM</span>
+                                        <span class="trip-status completed">Completed</span>
+                                    </div>
+                                    <div class="trip-details">
+                                        <span>Driver: Sarah Johnson</span>
+                                        <span>₺45.00</span>
+                                    </div>
+                                    <div class="trip-details">
+                                        <span>Distance: 12.5 km</span>
+                                        <span>Duration: 25 min</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="trip-item">
+                                    <div class="trip-header">
+                                        <span class="trip-date">Yesterday, 8:15 PM</span>
+                                        <span class="trip-status completed">Completed</span>
+                                    </div>
+                                    <div class="trip-details">
+                                        <span>Driver: Mike Chen</span>
+                                        <span>₺38.50</span>
+                                    </div>
+                                    <div class="trip-details">
+                                        <span>Distance: 10.2 km</span>
+                                        <span>Duration: 22 min</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="trip-item">
+                                    <div class="trip-header">
+                                        <span class="trip-date">3 days ago</span>
+                                        <span class="trip-status cancelled">Cancelled</span>
+                                    </div>
+                                    <div class="trip-details">
+                                        <span>Driver: Alex Smith</span>
+                                        <span>₺0.00</span>
+                                    </div>
+                                    <div class="trip-details">
+                                        <span>Reason: Driver unavailable</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-description">Complete trip history and details</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
